@@ -1,0 +1,17 @@
+{
+    "warehouseUniqueIdentifier": "01-01-0095-0012-000",
+    "locationAddress": {
+        "country": "Colombia",
+        "state": "Antioquia",
+        "city": "Rionegro",
+        "address": "Vereda llanogrande sector infonavi",
+        "additional": "Vereda llanogrande gualandai",
+        "zipCode": "054040",
+        "coordinate": {
+            "latitude": 20.00,
+            "longitude": -20.00
+        }
+    },
+    "maxVehicleCapacity": 15,
+    "availableSpaceVehicleSpaces": 3
+}
