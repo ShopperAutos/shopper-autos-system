@@ -3,7 +3,7 @@ para la eliminación de bodega se debe tener en cuenta la siguiente estructura:
 
 ```
 HTTP METHOD: DELETE
-Access route: /warehouse/{warehouse-id}
+Access route: /warehouse/{warehouse-unique-property-identifier}
 Status Code: 204 NO CONTENT
 ```
 En este caso la petición no lleva body dado que se trata de un ``` DELETE ```.

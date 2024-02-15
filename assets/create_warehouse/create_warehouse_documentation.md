@@ -12,7 +12,7 @@ A continuación se muestra lo que debe llevar en el body del request:
 
 ```json
 {
-    "warehouseUniqueIdentifier": "01-01-0095-0012-000",
+    "warehouseUniquePropertyIdentifier": "01-01-0095-0012-000",
     "locationAddress": {
         "country": "Colombia",
         "state": "Antioquia",
@@ -30,3 +30,13 @@ A continuación se muestra lo que debe llevar en el body del request:
 ```
 
 Se puede observar que el atributo ``` availableSpaceVehicleSpaces ``` no está presente ya que al momento de crear una bodega esta aun no está ocupada.
+
+Por último, lo que debe responder el servicio es lo siguiente:
+
+```json
+{
+    "warehouseUniquePropertyIdentifier": "01-01-0095-0012-000",
+    "orderStatus": "PENDING",
+    "message": "Warehouse created, pending for approval"
+}
+```
