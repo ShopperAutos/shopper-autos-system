@@ -2,8 +2,6 @@
 
 para la lectura de las bodegas se tienen las siguientes condiciones
 
-<p><span style="color: green;">TODO: mostrar la respuesta de los metodos</span></p>
-
 ## Consulta de todas las bodegas
 
 Esta forma de consulta retorna todas las bodegas con paginación implementada.
@@ -31,7 +29,7 @@ Un ejemplo de lo que retorna este método:
         "availableSpace": 5,
         "city": "Rionegro",
         "addres": "Cr XX # 21"
-    },
+    }
 ]
 ```
 

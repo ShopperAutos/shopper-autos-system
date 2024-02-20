@@ -36,7 +36,7 @@ Por último, lo que debe responder el servicio es lo siguiente:
 ```json
 {
     "warehouseUniquePropertyIdentifier": "01-01-0095-0012-000",
-    "orderStatus": "PENDING",
+    "warehouseStatus": "PENDING",
     "message": "Warehouse created, pending for approval"
 }
 ```

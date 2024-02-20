@@ -1,5 +1,6 @@
 package com.shopper.autos.system.domain.valueobject;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Address {
@@ -49,6 +50,17 @@ public class Address {
         return zipCode;
     }
 
-    //TODO: set hashcode and equals
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address1 = (Address) o;
+        return Objects.equals(country, address1.country) && Objects.equals(state, address1.state) && Objects.equals(city, address1.city) && Objects.equals(address, address1.address) && Objects.equals(zipCode, address1.zipCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, state, city, address, zipCode);
+    }
 
 }

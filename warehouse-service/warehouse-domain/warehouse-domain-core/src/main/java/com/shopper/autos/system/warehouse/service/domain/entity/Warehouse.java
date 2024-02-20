@@ -7,6 +7,7 @@ import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseA
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class Warehouse extends BaseEntity<WarehouseId> {
         super.setId(builder.warehouseId);
         warehouseUniquePropertyIdentifier = builder.warehouseUniquePropertyIdentifier;
         address = builder.address;
-        vehicles = builder.vehicles;
+        vehicles = new ArrayList<>();
         maxCapacity = builder.maxCapacity;
         availableSpace = builder.availableSpace;
         warehouseStatus = builder.warehouseStatus;
@@ -101,7 +102,7 @@ public class Warehouse extends BaseEntity<WarehouseId> {
     }
 
     private void validateAvailableSpace() {
-        if (availableSpace < 0 || availableSpace >= this.getMaxCapacity())
+        if (availableSpace < 0 || availableSpace > this.getMaxCapacity())
             //TODO: change for constants
             throw new WarehouseDomainException("Invalid value for quantity of available spaces");
     }
