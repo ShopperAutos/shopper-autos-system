@@ -1,5 +1,6 @@
-package com.shopper.autos.system.warehouse.service.domain.dto.query;
+package com.shopper.autos.system.warehouse.service.domain.dto.response;
 
+import com.shopper.autos.system.warehouse.service.domain.dto.WarehouseList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

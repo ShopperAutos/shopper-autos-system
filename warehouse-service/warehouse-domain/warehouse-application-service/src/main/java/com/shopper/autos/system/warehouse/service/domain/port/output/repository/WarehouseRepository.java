@@ -4,7 +4,6 @@ import com.shopper.autos.system.domain.entity.DomainPage;
 import com.shopper.autos.system.domain.repository.BaseRepository;
 import com.shopper.autos.system.domain.valueobject.SortingValue;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
-import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseAddress;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
 
 import java.util.List;
@@ -21,5 +20,7 @@ public interface WarehouseRepository extends BaseRepository<Warehouse, Warehouse
                                 String state,
                                 String city,
                                 String address);
+    Optional<Warehouse> updateAvailableSpace(String warehouseUniquePropertyIdentifier, Integer availableSpace);
+    Optional<Warehouse> deleteByWarehouseUniquePropertyIdentifier(String warehouseUniquePropertyIdentifier);
 
 }

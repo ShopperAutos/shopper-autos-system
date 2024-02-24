@@ -1,6 +1,11 @@
 package com.shopper.autos.system.warehouse.service.domain;
 
-import com.shopper.autos.system.warehouse.service.domain.dto.create.CreateWarehouseCommand;
+import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
+import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseQuery;
+import com.shopper.autos.system.warehouse.service.domain.dto.query.FindWarehouseQuery;
+import com.shopper.autos.system.warehouse.service.domain.handler.command.CreateWarehouseHandler;
+import com.shopper.autos.system.warehouse.service.domain.handler.query.FindAllWarehouseHandler;
+import com.shopper.autos.system.warehouse.service.domain.handler.query.FindWarehouseHandler;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
 import com.shopper.autos.system.warehouse.service.domain.mediator.Mediator;
 import com.shopper.autos.system.warehouse.service.domain.mediator.MediatorImpl;
@@ -44,6 +49,16 @@ public class WarehouseTestConfiguration {
     }
 
     @Bean
+    public FindAllWarehouseHandler findAllWarehouseHandler() {
+        return new FindAllWarehouseHandler(warehouseRepository(), warehouseDomainMapper());
+    }
+
+    @Bean
+    public FindWarehouseHandler findWarehouseHandler() {
+        return new FindWarehouseHandler(warehouseRepository(), warehouseDomainMapper());
+    }
+
+    @Bean
     public Mediator mediator() {
         return new MediatorImpl(getHandlers());
     }
@@ -56,7 +71,8 @@ public class WarehouseTestConfiguration {
     private Map<Class<?>, RequestHandler<?, ?>> getHandlers() {
         HashMap<Class<?>, RequestHandler<?, ?>> handlers = new HashMap<>();
         handlers.put(CreateWarehouseCommand.class, createWarehouseHandler());
-        handlers.put(null, createWarehouseHandler());
+        handlers.put(FindAllWarehouseQuery.class, findAllWarehouseHandler());
+        handlers.put(FindWarehouseQuery.class, findWarehouseHandler());
         return handlers;
     }
 

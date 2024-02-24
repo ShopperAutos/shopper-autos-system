@@ -1,8 +1,8 @@
-package com.shopper.autos.system.warehouse.service.domain;
+package com.shopper.autos.system.warehouse.service.domain.handler.query;
 
 import com.shopper.autos.system.domain.entity.DomainPage;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseQuery;
-import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseResponse;
+import com.shopper.autos.system.warehouse.service.domain.dto.response.FindAllWarehouseResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
 import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;

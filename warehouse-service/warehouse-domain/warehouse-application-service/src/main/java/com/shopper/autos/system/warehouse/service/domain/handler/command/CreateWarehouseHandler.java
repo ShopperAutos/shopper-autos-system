@@ -1,7 +1,9 @@
-package com.shopper.autos.system.warehouse.service.domain;
+package com.shopper.autos.system.warehouse.service.domain.handler.command;
 
-import com.shopper.autos.system.warehouse.service.domain.dto.create.CreateWarehouseCommand;
-import com.shopper.autos.system.warehouse.service.domain.dto.create.CreateWarehouseResponse;
+import com.shopper.autos.system.warehouse.service.domain.WarehouseDomainService;
+import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
+import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
+import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.event.WarehouseCreatedEvent;
 import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseDomainException;
@@ -10,7 +12,7 @@ import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler
 import com.shopper.autos.system.warehouse.service.domain.port.output.publisher.WarehouseCreatedMessagePublisher;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 
-public class CreateWarehouseHandler implements RequestHandler<CreateWarehouseCommand, CreateWarehouseResponse> {
+public class CreateWarehouseHandler implements RequestHandler<CreateWarehouseCommand, WarehouseUpdatedResponse> {
 
     private final WarehouseRepository warehouseRepository;
     private final WarehouseDomainService warehouseDomainService;
@@ -25,12 +27,12 @@ public class CreateWarehouseHandler implements RequestHandler<CreateWarehouseCom
     }
 
     @Override
-    public CreateWarehouseResponse handle(CreateWarehouseCommand request) {
+    public WarehouseUpdatedResponse handle(CreateWarehouseCommand request) {
         Warehouse warehouse = warehouseDomainMapper.createWarehouseCommandToWarehouse(request);
         WarehouseCreatedEvent warehouseCreatedEvent = warehouseDomainService.initializeWarehouse(warehouse);
         saveWarehouse(warehouse);
-        warehouseCreatedMessagePublisher.publish(warehouseCreatedEvent);
-        return warehouseDomainMapper.warehouseToCreateWarehouseResponse(warehouseCreatedEvent.getWarehouse(), "Warehouse created successfully");
+        //warehouseCreatedMessagePublisher.publish(warehouseCreatedEvent);
+        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouseCreatedEvent.getWarehouse(), WarehouseDomainConstant.CREATION_SUCCESS);
     }
 
     private void saveWarehouse(Warehouse warehouse) {

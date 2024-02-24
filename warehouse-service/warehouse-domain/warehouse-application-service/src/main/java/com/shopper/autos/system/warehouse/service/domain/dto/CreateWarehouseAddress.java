@@ -1,4 +1,4 @@
-package com.shopper.autos.system.warehouse.service.domain.dto.create;
+package com.shopper.autos.system.warehouse.service.domain.dto;
 
 import com.shopper.autos.system.domain.valueobject.Coordinate;
 import lombok.AllArgsConstructor;

@@ -16,7 +16,7 @@ public class WarehouseDomainServiceImpl implements WarehouseDomainService {
         warehouse.validateWarehouse();
         warehouse.initializeWarehouse();
         log.info(String.format("Warehouse with id: %s has been initialized", warehouse.getId().getValue()));
-        return new WarehouseCreatedEvent(warehouse, ZonedDateTime.now(ZoneId.of("UTC")));
+        return new WarehouseCreatedEvent(warehouse, ZonedDateTime.now(ZoneId.of("UTC-5")));
     }
 
     @Override

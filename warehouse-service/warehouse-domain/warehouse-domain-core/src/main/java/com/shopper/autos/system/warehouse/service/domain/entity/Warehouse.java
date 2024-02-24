@@ -1,7 +1,7 @@
 package com.shopper.autos.system.warehouse.service.domain.entity;
 
 import com.shopper.autos.system.domain.entity.BaseEntity;
-import com.shopper.autos.system.domain.valueobject.Address;
+import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseDomainException;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseAddress;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
@@ -76,7 +76,7 @@ public class Warehouse extends BaseEntity<WarehouseId> {
         return warehouseUniquePropertyIdentifier;
     }
 
-    public Address getAddress() {
+    public WarehouseAddress getAddress() {
         return address;
     }
 
@@ -103,8 +103,7 @@ public class Warehouse extends BaseEntity<WarehouseId> {
 
     private void validateAvailableSpace() {
         if (availableSpace < 0 || availableSpace > this.getMaxCapacity())
-            //TODO: change for constants
-            throw new WarehouseDomainException("Invalid value for quantity of available spaces");
+            throw new WarehouseDomainException(WarehouseDomainConstant.INVALID_AVAILABLE_SPACE);
     }
 
     private void validateWarehouseUniquePropertyIdentifier() {
