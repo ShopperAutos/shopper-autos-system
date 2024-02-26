@@ -8,6 +8,7 @@ import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseNotF
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
 import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
+import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
@@ -25,11 +26,7 @@ public class FindWarehouseHandler implements RequestHandler<FindWarehouseQuery, 
 
     @Override
     public FindWarehouseResponse handle(FindWarehouseQuery request) {
-        Optional<Warehouse> warehouseResult = warehouseRepository.findByWarehouseUniquePropertyIdentifier(request.getWarehouseUniquePropertyIdentifier());
-        if (warehouseResult.isEmpty()) {
-            log.warn("Could not find warehouse with warehouse unique property identifier: {}", request.getWarehouseUniquePropertyIdentifier());
-            throw new WarehouseNotFoundException(String.format(WarehouseDomainConstant.NOT_FOUND, request.getWarehouseUniquePropertyIdentifier()));
-        }
-        return warehouseDomainMapper.warehouseToFindWarehouseResponse(warehouseResult.get());
+        Warehouse warehouseResult = CommonWarehouseDomain.findWarehouseByWarehouseUniquePropertyIdentifier(warehouseRepository,request.getWarehouseUniquePropertyIdentifier(),log);
+        return warehouseDomainMapper.warehouseToFindWarehouseResponse(warehouseResult);
     }
 }

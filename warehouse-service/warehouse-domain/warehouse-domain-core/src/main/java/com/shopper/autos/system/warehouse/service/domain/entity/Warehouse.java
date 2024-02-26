@@ -42,22 +42,19 @@ public class Warehouse extends BaseEntity<WarehouseId> {
 
     public void approve() {
         if (this.warehouseStatus != WarehouseStatus.PENDING)
-            //TODO: change for constants
-            throw new WarehouseDomainException("Warehouse is not in the right state for reject");
-        this.warehouseStatus = WarehouseStatus.REJECTED;
+            throw new WarehouseDomainException(WarehouseDomainConstant.WAREHOUSE_WRONG_STATE_APPROVAL);
+        this.warehouseStatus = WarehouseStatus.CREATED;
     }
 
     public void reject() {
         if (this.warehouseStatus != WarehouseStatus.PENDING)
-            //TODO: change for constants
-            throw new WarehouseDomainException("Warehouse is not in the right state for approval");
-        this.warehouseStatus = WarehouseStatus.CREATED;
+            throw new WarehouseDomainException(WarehouseDomainConstant.WAREHOUSE_WRONG_STATE_REJECTION);
+        this.warehouseStatus = WarehouseStatus.REJECTED;
     }
 
     public void cancel() {
         if (this.warehouseStatus != WarehouseStatus.PENDING)
-            //TODO: change for constants
-            throw new WarehouseDomainException("Warehouse is not in the right state for cancel");
+            throw new WarehouseDomainException(WarehouseDomainConstant.WAREHOUSE_WRONG_STATE_CANCELLATION);
         this.warehouseStatus = WarehouseStatus.CANCELLED;
     }
 
@@ -98,19 +95,19 @@ public class Warehouse extends BaseEntity<WarehouseId> {
 
     private void validateInitialWarehouse() {
         if (warehouseStatus != null || getId() != null)
-            throw new WarehouseDomainException("Warehouse is in wrong state for initialization");
+            throw new WarehouseDomainException(WarehouseDomainConstant.WAREHOUSE_WRONG_STATE_INITIALIZATION);
     }
 
     private void validateAvailableSpace() {
         if (availableSpace < 0 || availableSpace > this.getMaxCapacity())
-            throw new WarehouseDomainException(WarehouseDomainConstant.INVALID_AVAILABLE_SPACE);
+            throw new WarehouseDomainException(WarehouseDomainConstant.WAREHOUSE_INVALID_AVAILABLE_SPACE);
     }
 
     private void validateWarehouseUniquePropertyIdentifier() {
         if (warehouseUniquePropertyIdentifier == null)
-            throw new WarehouseDomainException("Warehouse unique property identifier cannot be null");
+            throw new WarehouseDomainException(WarehouseDomainConstant.UNIQUE_PROPERTY_IDENTIFIER_CANNOT_BE_NULL);
         if (warehouseUniquePropertyIdentifier.isEmpty())
-            throw new WarehouseDomainException("Warehouse unique property identifier cannot be empty");
+            throw new WarehouseDomainException(WarehouseDomainConstant.UNIQUE_PROPERTY_IDENTIFIER_CANNOT_BE_EMPTY);
     }
 
     public static final class Builder {

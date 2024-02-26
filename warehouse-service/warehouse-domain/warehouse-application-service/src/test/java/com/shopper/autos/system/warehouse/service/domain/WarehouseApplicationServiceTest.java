@@ -3,7 +3,7 @@ package com.shopper.autos.system.warehouse.service.domain;
 import com.shopper.autos.system.domain.entity.DomainPage;
 import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.dto.WarehouseList;
-import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
+import com.shopper.autos.system.warehouse.service.domain.dto.command.*;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.*;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.FindAllWarehouseResponse;
@@ -14,11 +14,14 @@ import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseNotF
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
 import com.shopper.autos.system.warehouse.service.domain.port.input.service.WarehouseApplicationService;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
+import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -50,6 +53,16 @@ class WarehouseApplicationServiceTest {
 
     private CreateWarehouseCommand wrongAvailableSpaceCreateWarehouseCommand;
 
+    private ApproveWarehouseCommand approveWarehouseCommand;
+
+    private ApproveWarehouseCommand approveWrongWarehouseCommand;
+
+    private DeleteWarehouseCommand deleteWarehouseCommand;
+
+    private RejectWarehouseCommand rejectWarehouseCommand;
+
+    private UpdateWarehouseAvailableSpaceCommand updateWarehouseAvailableSpaceCommand;
+
     private FindAllWarehouseQuery findAllWarehouseQuery;
 
     private FindWarehouseQuery findWarehouseQuery;
@@ -70,6 +83,16 @@ class WarehouseApplicationServiceTest {
         findWarehouseQuery = WarehouseObjectFactory.createFindWarehouseQuery(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER);
 
         findWrongWarehouseQuery = WarehouseObjectFactory.createFindWarehouseQuery(WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER);
+
+        approveWarehouseCommand = WarehouseObjectFactory.createApproveWarehouseCommand(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER);
+
+        approveWrongWarehouseCommand = WarehouseObjectFactory.createApproveWarehouseCommand(WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER);
+
+        deleteWarehouseCommand = WarehouseObjectFactory.createDeleteWarehouseCommand(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER);
+
+        rejectWarehouseCommand = WarehouseObjectFactory.createRejectWarehouseCommand(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER);
+
+        updateWarehouseAvailableSpaceCommand = WarehouseObjectFactory.createUpdateWarehouseAvailableSpaceCommand(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER,AVAILABLE_SPACE);
 
         warehouse = WarehouseObjectFactory.createWarehouse(createWarehouseCommand,warehouseDomainMapper);
 
@@ -96,7 +119,7 @@ class WarehouseApplicationServiceTest {
     void givenARightCreateWarehouseCommand_whenAttemptToCreate_thenTheWarehouseShouldBeCreatedAsPending() {
         WarehouseUpdatedResponse createdWarehouseResponse = warehouseApplicationService.createWarehouse(createWarehouseCommand);
         Assertions.assertEquals(createdWarehouseResponse.getWarehouseStatus(), WarehouseStatus.PENDING);
-        Assertions.assertEquals(createdWarehouseResponse.getMessage(), WarehouseDomainConstant.CREATION_SUCCESS);
+        Assertions.assertEquals(createdWarehouseResponse.getMessage(), WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS);
         Assertions.assertNotNull(createdWarehouseResponse.getWarehouseUniquePropertyIdentifier());
     }
 
@@ -112,7 +135,7 @@ class WarehouseApplicationServiceTest {
                 WarehouseDomainException.class,
                 () -> warehouseApplicationService.createWarehouse(wrongAvailableSpaceCreateWarehouseCommand)
         );
-        Assertions.assertEquals(WarehouseDomainConstant.INVALID_AVAILABLE_SPACE, warehouseDomainException.getMessage());
+        Assertions.assertEquals(WarehouseDomainConstant.WAREHOUSE_INVALID_AVAILABLE_SPACE, warehouseDomainException.getMessage());
     }
 
     @Test
@@ -137,22 +160,46 @@ class WarehouseApplicationServiceTest {
                 WarehouseNotFoundException.class,
                 ()-> warehouseApplicationService.findWarehouseByWarehouseUniquePropertyIdentifier(findWrongWarehouseQuery)
         );
-        Assertions.assertEquals(String.format(WarehouseDomainConstant.NOT_FOUND,WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER),warehouseNotFoundException.getMessage());
+        Assertions.assertEquals(String.format(WarehouseDomainConstant.WAREHOUSE_NOT_FOUND,WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER),warehouseNotFoundException.getMessage());
     }
 
-    /*@Test
-    void findAllWarehouses() {
-        warehousePage = warehouseRepository.findAllByParameters(
-                findAllWarehouseQuery.getPage(),
-                findAllWarehouseQuery.getSize(),
-                findAllWarehouseQuery.getFields(),
-                findAllWarehouseQuery.getSortingValue(),
-                findAllWarehouseQuery.getCountry(),
-                findAllWarehouseQuery.getState(),
-                findAllWarehouseQuery.getCity(),
-                findAllWarehouseQuery.getAddress()
-        );
-        System.out.println(warehousePage.getPage());
+    @Test
+    void givenARightApproveWarehouseCommand_whenAttemptToApproveWarehouse_thenShouldReturnWarehouseUpdatedResponse(){
+        warehouse.initializeWarehouse();
+        WarehouseUpdatedResponse response = warehouseApplicationService.approveWarehouse(approveWarehouseCommand);
+        Assertions.assertEquals(warehouse.getWarehouseStatus(),response.getWarehouseStatus());
     }
-*/
+
+    //TODO: this test is not necessary
+    /*@Test
+    void givenAWrongApproveWarehouseCommand_whenAttemptToApproveWarehouse_thenShouldThrowWarehouseNotFoundException(){
+        WarehouseNotFoundException warehouseDomainException = Assertions.assertThrows(
+                WarehouseNotFoundException.class,
+                ()->warehouseApplicationService.approveWarehouse(approveWrongWarehouseCommand)
+        );
+        Assertions.assertEquals(String.format(WarehouseDomainConstant.WAREHOUSE_NOT_FOUND,WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER),warehouseDomainException.getMessage());
+    }*/
+
+    @Test
+    void givenAWrongWarehouseStatus_whenAttemptToApproveWarehouse_thenShouldThrowWarehouseDomainException(){
+        WarehouseDomainException warehouseDomainException = Assertions.assertThrows(
+                WarehouseDomainException.class,
+                ()-> warehouseApplicationService.approveWarehouse(approveWarehouseCommand)
+        );
+        Assertions.assertEquals(WarehouseDomainConstant.WAREHOUSE_WRONG_STATE_APPROVAL,warehouseDomainException.getMessage());
+    }
+
+    @Test
+    void givenAWrongCommand_whenAttemptToFindWarehouse_thenShouldThrowNotFoundException(){
+        WarehouseNotFoundException warehouseNotFoundException = Assertions.assertThrows(
+                WarehouseNotFoundException.class,
+                ()->CommonWarehouseDomain.findWarehouseByWarehouseUniquePropertyIdentifier(
+                        warehouseRepository,
+                        WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER,
+                        LoggerFactory.getLogger(WarehouseApplicationServiceTest.class)
+                )
+        );
+        Assertions.assertEquals(String.format(WarehouseDomainConstant.WAREHOUSE_NOT_FOUND, WAREHOUSE_WRONG_UNIQUE_PROPERTY_IDENTIFIER),warehouseNotFoundException.getMessage());
+    }
+
 }

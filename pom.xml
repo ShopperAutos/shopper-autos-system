@@ -8,12 +8,39 @@
     <artifactId>shopper-autos-system</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>3.2.2</version>
+        <relativePath/>
+    </parent>
+
     <packaging>pom</packaging>
+
+    <properties>
+        <mockito.version>5.10.0</mockito.version>
+    </properties>
 
     <modules>
         <module>common</module>
         <module>warehouse-service</module>
         <module>vehicle-service</module>
     </modules>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.shopper.autos.system</groupId>
+                <artifactId>common-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.shopper.autos.system</groupId>
+                <artifactId>common-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

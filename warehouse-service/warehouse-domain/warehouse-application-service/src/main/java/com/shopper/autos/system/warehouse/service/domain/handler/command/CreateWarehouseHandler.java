@@ -32,7 +32,7 @@ public class CreateWarehouseHandler implements RequestHandler<CreateWarehouseCom
         WarehouseCreatedEvent warehouseCreatedEvent = warehouseDomainService.initializeWarehouse(warehouse);
         saveWarehouse(warehouse);
         //warehouseCreatedMessagePublisher.publish(warehouseCreatedEvent);
-        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouseCreatedEvent.getWarehouse(), WarehouseDomainConstant.CREATION_SUCCESS);
+        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouseCreatedEvent.getWarehouse(), WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS);
     }
 
     private void saveWarehouse(Warehouse warehouse) {

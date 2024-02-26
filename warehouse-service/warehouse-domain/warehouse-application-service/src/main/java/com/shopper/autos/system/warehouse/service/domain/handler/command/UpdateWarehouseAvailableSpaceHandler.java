@@ -31,8 +31,9 @@ public class UpdateWarehouseAvailableSpaceHandler implements RequestHandler<Upda
         if (foundWarehouse.isEmpty()) {
             //TODO: Change log
             log.warn("NO EXISTE");
-            throw new WarehouseNotFoundException(String.format(WarehouseDomainConstant.NOT_FOUND, request.getWarehouseUniquePropertyIdentifier()));
+            throw new WarehouseNotFoundException(String.format(WarehouseDomainConstant.WAREHOUSE_NOT_FOUND, request.getWarehouseUniquePropertyIdentifier()));
         }
+        foundWarehouse.get().updateAvailableSpace(request.getAvailableSpace());
         warehouseRepository.update(foundWarehouse.get().getId(),foundWarehouse.get());
         return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(foundWarehouse.get(),"ESPACIO MODIFICADO");
     }

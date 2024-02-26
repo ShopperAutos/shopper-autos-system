@@ -1,5 +1,7 @@
 package com.shopper.autos.system.warehouse.service.domain;
 
+import com.shopper.autos.system.domain.constant.ConfigConstant;
+import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.event.WarehouseCreatedEvent;
 
@@ -15,25 +17,25 @@ public class WarehouseDomainServiceImpl implements WarehouseDomainService {
     public WarehouseCreatedEvent initializeWarehouse(Warehouse warehouse) {
         warehouse.validateWarehouse();
         warehouse.initializeWarehouse();
-        log.info(String.format("Warehouse with id: %s has been initialized", warehouse.getId().getValue()));
-        return new WarehouseCreatedEvent(warehouse, ZonedDateTime.now(ZoneId.of("UTC-5")));
+        log.info(String.format(WarehouseDomainConstant.WAREHOUSE_INITIALIZED, warehouse.getId().getValue()));
+        return new WarehouseCreatedEvent(warehouse, ZonedDateTime.now(ZoneId.of(ConfigConstant.UTC_5)));
     }
 
     @Override
     public void approveWarehouse(Warehouse warehouse) {
         warehouse.approve();
-        log.info(String.format("Warehouse with id: %s has been approved", warehouse.getId().getValue()));
+        log.info(String.format(WarehouseDomainConstant.WAREHOUSE_APPROVED, warehouse.getId().getValue()));
     }
 
     @Override
     public void rejectWarehouse(Warehouse warehouse) {
         warehouse.reject();
-        log.info(String.format("Warehouse with id: %s has been rejected", warehouse.getId().getValue()));
+        log.info(String.format(WarehouseDomainConstant.WAREHOUSE_REJECTED, warehouse.getId().getValue()));
     }
 
     @Override
     public void cancelWarehouse(Warehouse warehouse) {
         warehouse.cancel();
-        log.info(String.format("Warehouse with id: %s has been cancelled", warehouse.getId().getValue()));
+        log.info(String.format(WarehouseDomainConstant.WAREHOUSE_CANCELLED, warehouse.getId().getValue()));
     }
 }

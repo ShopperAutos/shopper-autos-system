@@ -1,8 +1,10 @@
 package com.shopper.autos.system.warehouse.service.domain;
 
+import com.shopper.autos.system.warehouse.service.domain.dto.command.ApproveWarehouseCommand;
 import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseQuery;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindWarehouseQuery;
+import com.shopper.autos.system.warehouse.service.domain.handler.command.ApproveWarehouseHandler;
 import com.shopper.autos.system.warehouse.service.domain.handler.command.CreateWarehouseHandler;
 import com.shopper.autos.system.warehouse.service.domain.handler.query.FindAllWarehouseHandler;
 import com.shopper.autos.system.warehouse.service.domain.handler.query.FindWarehouseHandler;
@@ -59,6 +61,11 @@ public class WarehouseTestConfiguration {
     }
 
     @Bean
+    public ApproveWarehouseHandler approveWarehouseHandler(){
+        return new ApproveWarehouseHandler(warehouseDomainService(),warehouseRepository(),warehouseDomainMapper());
+    }
+
+    @Bean
     public Mediator mediator() {
         return new MediatorImpl(getHandlers());
     }
@@ -73,6 +80,7 @@ public class WarehouseTestConfiguration {
         handlers.put(CreateWarehouseCommand.class, createWarehouseHandler());
         handlers.put(FindAllWarehouseQuery.class, findAllWarehouseHandler());
         handlers.put(FindWarehouseQuery.class, findWarehouseHandler());
+        handlers.put(ApproveWarehouseCommand.class, approveWarehouseHandler());
         return handlers;
     }
 

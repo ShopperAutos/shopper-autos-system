@@ -13,5 +13,5 @@
         }
     },
     "maxVehicleCapacity": 15,
-    "availableSpaceVehicleSpaces": 3
+    "availableSpace": 3
 }

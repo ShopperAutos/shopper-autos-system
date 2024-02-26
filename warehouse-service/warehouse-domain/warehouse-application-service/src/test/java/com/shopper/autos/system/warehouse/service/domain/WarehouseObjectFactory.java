@@ -4,7 +4,7 @@ import com.shopper.autos.system.domain.valueobject.Coordinate;
 import com.shopper.autos.system.domain.valueobject.SortingValue;
 import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.dto.CreateWarehouseAddress;
-import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
+import com.shopper.autos.system.warehouse.service.domain.dto.command.*;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseQuery;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindWarehouseQuery;
@@ -40,7 +40,7 @@ public class WarehouseObjectFactory {
     }
 
     public static WarehouseUpdatedResponse createwarehouseUpdatedResponse(Warehouse warehouse, WarehouseDomainMapper warehouseDomainMapper) {
-        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouse, WarehouseDomainConstant.CREATION_SUCCESS);
+        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouse, WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS);
     }
 
     public static FindAllWarehouseQuery createFindAllWarehouseQuery() {
@@ -56,9 +56,34 @@ public class WarehouseObjectFactory {
                 .build();
     }
 
-    public static FindWarehouseQuery createFindWarehouseQuery(String warehouseUniquePropertyIdentifier){
+    public static FindWarehouseQuery createFindWarehouseQuery(String warehouseUniquePropertyIdentifier) {
         return FindWarehouseQuery.builder()
                 .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifier)
+                .build();
+    }
+
+    public static ApproveWarehouseCommand createApproveWarehouseCommand(String warehouseUniquePropertyIdentifier) {
+        return ApproveWarehouseCommand.builder()
+                .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifier)
+                .build();
+    }
+
+    public static RejectWarehouseCommand createRejectWarehouseCommand(String warehouseUniquePropertyIdentifier) {
+        return RejectWarehouseCommand.builder()
+                .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifier)
+                .build();
+    }
+
+    public static DeleteWarehouseCommand createDeleteWarehouseCommand(String warehouseUniquePropertyIdentifier) {
+        return DeleteWarehouseCommand.builder()
+                .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifier)
+                .build();
+    }
+
+    public static UpdateWarehouseAvailableSpaceCommand createUpdateWarehouseAvailableSpaceCommand(String warehouseUniquePropertyIdentifier, Integer availableSpace) {
+        return UpdateWarehouseAvailableSpaceCommand.builder()
+                .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifier)
+                .availableSpace(availableSpace)
                 .build();
     }
 

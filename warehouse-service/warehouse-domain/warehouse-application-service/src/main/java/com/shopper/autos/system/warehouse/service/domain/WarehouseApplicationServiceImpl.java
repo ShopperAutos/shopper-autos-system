@@ -1,9 +1,6 @@
 package com.shopper.autos.system.warehouse.service.domain;
 
-import com.shopper.autos.system.warehouse.service.domain.dto.command.ApproveWarehouseCommand;
-import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
-import com.shopper.autos.system.warehouse.service.domain.dto.command.DeleteWarehouseCommand;
-import com.shopper.autos.system.warehouse.service.domain.dto.command.UpdateWarehouseAvailableSpaceCommand;
+import com.shopper.autos.system.warehouse.service.domain.dto.command.*;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseQuery;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.FindAllWarehouseResponse;
@@ -50,6 +47,11 @@ class WarehouseApplicationServiceImpl implements WarehouseApplicationService {
     @Override
     public WarehouseUpdatedResponse approveWarehouse(ApproveWarehouseCommand approveWarehouseCommand) {
         return mediator.send(approveWarehouseCommand);
+    }
+
+    @Override
+    public WarehouseUpdatedResponse rejectWarehouse(RejectWarehouseCommand rejectWarehouseCommand) {
+        return mediator.send(rejectWarehouseCommand);
     }
 
 
