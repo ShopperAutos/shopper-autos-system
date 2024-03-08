@@ -28,8 +28,7 @@ public class FindAllWarehouseHandler implements RequestHandler<FindAllWarehouseQ
                         request.getSortingValue(),
                         request.getCountry(),
                         request.getState(),
-                        request.getCity(),
-                        request.getAddress()
+                        request.getCity()
                 );
         return warehouseDomainMapper.domainPageWarehouseToFindAllWarehouseResponse(warehouses);
     }

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class WarehouseDomainServiceImpl implements WarehouseDomainService {
 
-    Logger log = Logger.getLogger(WarehouseDomainServiceImpl.class.getName());
+    private final Logger log = Logger.getLogger(WarehouseDomainServiceImpl.class.getName());
 
     @Override
     public WarehouseCreatedEvent initializeWarehouse(Warehouse warehouse) {
@@ -19,6 +19,12 @@ public class WarehouseDomainServiceImpl implements WarehouseDomainService {
         warehouse.initializeWarehouse();
         log.info(String.format(WarehouseDomainConstant.WAREHOUSE_INITIALIZED, warehouse.getId().getValue()));
         return new WarehouseCreatedEvent(warehouse, ZonedDateTime.now(ZoneId.of(ConfigConstant.UTC_5)));
+    }
+
+    @Override
+    public void updateWarehouseAvailableSpace(Warehouse warehouse, Integer availableSpace) {
+        warehouse.updateAvailableSpace(availableSpace);
+        log.info(String.format(WarehouseDomainConstant.WAREHOUSE_AVAILABLE_SPACE_UPDATED, warehouse.getId().getValue()));
     }
 
     @Override

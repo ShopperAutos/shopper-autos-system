@@ -6,6 +6,8 @@ import com.shopper.autos.system.warehouse.service.domain.event.WarehouseCreatedE
 public interface WarehouseDomainService {
     WarehouseCreatedEvent initializeWarehouse(Warehouse warehouse);
 
+    void updateWarehouseAvailableSpace(Warehouse warehouse, Integer availableSpace);
+
     void approveWarehouse(Warehouse warehouse);
 
     void rejectWarehouse(Warehouse warehouse);

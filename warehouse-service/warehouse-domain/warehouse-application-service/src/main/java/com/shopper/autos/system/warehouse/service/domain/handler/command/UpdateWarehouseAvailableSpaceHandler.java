@@ -1,5 +1,6 @@
 package com.shopper.autos.system.warehouse.service.domain.handler.command;
 
+import com.shopper.autos.system.warehouse.service.domain.WarehouseDomainService;
 import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.dto.command.UpdateWarehouseAvailableSpaceCommand;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
@@ -8,6 +9,7 @@ import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseNotF
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
 import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
+import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
@@ -15,10 +17,12 @@ import java.util.Optional;
 @Slf4j
 public class UpdateWarehouseAvailableSpaceHandler implements RequestHandler<UpdateWarehouseAvailableSpaceCommand, WarehouseUpdatedResponse> {
 
+    private final WarehouseDomainService warehouseDomainService;
     private final WarehouseDomainMapper warehouseDomainMapper;
     private final WarehouseRepository warehouseRepository;
 
-    public UpdateWarehouseAvailableSpaceHandler(WarehouseDomainMapper warehouseDomainMapper, WarehouseRepository warehouseRepository) {
+    public UpdateWarehouseAvailableSpaceHandler(WarehouseDomainService warehouseDomainService, WarehouseDomainMapper warehouseDomainMapper, WarehouseRepository warehouseRepository) {
+        this.warehouseDomainService = warehouseDomainService;
         this.warehouseDomainMapper = warehouseDomainMapper;
         this.warehouseRepository = warehouseRepository;
     }
@@ -26,15 +30,9 @@ public class UpdateWarehouseAvailableSpaceHandler implements RequestHandler<Upda
 
     @Override
     public WarehouseUpdatedResponse handle(UpdateWarehouseAvailableSpaceCommand request) {
-        Optional<Warehouse> foundWarehouse = warehouseRepository.findByWarehouseUniquePropertyIdentifier(request.getWarehouseUniquePropertyIdentifier());
-        //TODO: Change this piece of code for a method to apply dry principle
-        if (foundWarehouse.isEmpty()) {
-            //TODO: Change log
-            log.warn("NO EXISTE");
-            throw new WarehouseNotFoundException(String.format(WarehouseDomainConstant.WAREHOUSE_NOT_FOUND, request.getWarehouseUniquePropertyIdentifier()));
-        }
-        foundWarehouse.get().updateAvailableSpace(request.getAvailableSpace());
-        warehouseRepository.update(foundWarehouse.get().getId(),foundWarehouse.get());
-        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(foundWarehouse.get(),"ESPACIO MODIFICADO");
+        Warehouse foundWarehouse = CommonWarehouseDomain.findWarehouseByWarehouseUniquePropertyIdentifier(warehouseRepository,request.getWarehouseUniquePropertyIdentifier(),log);
+        warehouseDomainService.updateWarehouseAvailableSpace(foundWarehouse,request.getAvailableSpace());
+        warehouseRepository.update(foundWarehouse.getId(),foundWarehouse);
+        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(foundWarehouse,"ESPACIO MODIFICADO");
     }
 }

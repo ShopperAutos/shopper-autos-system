@@ -26,4 +26,5 @@ public class WarehouseDomainConstant {
     public static final String WAREHOUSE_CANCELLED = WAREHOUSE + DomainConstant.WITH_ID + DomainConstant.CANCELLED;
 
 
+    public static final String WAREHOUSE_AVAILABLE_SPACE_UPDATED = "";
 }

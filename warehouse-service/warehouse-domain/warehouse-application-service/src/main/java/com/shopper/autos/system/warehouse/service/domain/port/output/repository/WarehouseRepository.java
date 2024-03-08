@@ -12,15 +12,21 @@ import java.util.Optional;
 public interface WarehouseRepository extends BaseRepository<Warehouse, WarehouseId> {
 
     Optional<Warehouse> findByWarehouseUniquePropertyIdentifier(String warehouseUniquePropertyIdentifier);
+
     DomainPage<Warehouse> findAllByParameters(Integer page,
-                                Integer size,
-                                List<String> fields,
-                                SortingValue sortingValue,
-                                String country,
-                                String state,
-                                String city,
-                                String address);
+                                              Integer size,
+                                              List<String> fields,
+                                              SortingValue sortingValue,
+                                              String country,
+                                              String state,
+                                              String city);
+
+    DomainPage<Warehouse> findAllByAddress(String address);
+
     Optional<Warehouse> updateAvailableSpace(String warehouseUniquePropertyIdentifier, Integer availableSpace);
+
     Optional<Warehouse> deleteByWarehouseUniquePropertyIdentifier(String warehouseUniquePropertyIdentifier);
+
+    void update(WarehouseId id, Warehouse warehouse);
 
 }

@@ -9,7 +9,6 @@ public interface BaseRepository<T extends BaseEntity<ID>, ID extends BaseId<?>> 
 
     T save(T entity);
     Optional<T> findById(ID id);
-    void update(ID id, T entity);
     void delete(ID id);
 
 }

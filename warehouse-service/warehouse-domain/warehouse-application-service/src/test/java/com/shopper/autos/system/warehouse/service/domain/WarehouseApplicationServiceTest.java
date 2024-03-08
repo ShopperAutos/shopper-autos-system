@@ -103,8 +103,7 @@ class WarehouseApplicationServiceTest {
                 findAllWarehouseQuery.getSortingValue(),
                 findAllWarehouseQuery.getCountry(),
                 findAllWarehouseQuery.getState(),
-                findAllWarehouseQuery.getCity(),
-                findAllWarehouseQuery.getAddress()
+                findAllWarehouseQuery.getCity()
         ))
                 .thenReturn(new DomainPage<>(Collections.singletonList(warehouse), findAllWarehouseQuery.getPage(), findAllWarehouseQuery.getSize(), TOTAL_RESULT));
         when(warehouseRepository.findByWarehouseUniquePropertyIdentifier(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER))
