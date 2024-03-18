@@ -3,27 +3,25 @@ package com.shopper.autos.system.warehouse.service.infrastructure.adapter;
 import com.shopper.autos.system.domain.entity.BaseEntity;
 import com.shopper.autos.system.domain.repository.BaseRepository;
 import com.shopper.autos.system.domain.valueobject.BaseId;
-import com.shopper.autos.system.warehouse.service.infrastructure.GenericInfrastructureMapper;
+import com.shopper.autos.system.warehouse.service.infrastructure.mapper.GenericMapper;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.GenericJpaRepository;
 
 import java.util.Optional;
 
-public class BaseRepositoryAdapter<DomainEntity extends BaseEntity<DomainID>, InfrastructureEntity, DomainID extends BaseId<InfrastructureID>, InfrastructureID> implements BaseRepository<DomainEntity, DomainID> {
+public abstract class BaseRepositoryAdapter<DomainEntity extends BaseEntity<DomainID>, InfrastructureEntity, DomainID extends BaseId<InfrastructureID>, InfrastructureID> implements BaseRepository<DomainEntity, DomainID> {
 
-    protected final GenericInfrastructureMapper mapper;
+    protected final GenericMapper<DomainEntity, InfrastructureEntity> mapper;
     protected final GenericJpaRepository<InfrastructureEntity, InfrastructureID> repository;
 
-    public BaseRepositoryAdapter(GenericInfrastructureMapper mapper, GenericJpaRepository<InfrastructureEntity, InfrastructureID> repository) {
+    public BaseRepositoryAdapter(GenericMapper<DomainEntity, InfrastructureEntity> mapper, GenericJpaRepository<InfrastructureEntity, InfrastructureID> repository) {
         this.mapper = mapper;
         this.repository = repository;
     }
 
     @Override
     public DomainEntity save(DomainEntity entity) {
-        return this.mapper.map(
-                this.repository.save(
-                        this.mapper.map(entity)
-                )
+        return this.toDomainEntity(
+                this.repository.save(this.toInfrastructureEntity(entity))
         );
     }
 
@@ -42,7 +40,7 @@ public class BaseRepositoryAdapter<DomainEntity extends BaseEntity<DomainID>, In
     }
 
     protected DomainEntity toDomainEntity(InfrastructureEntity entity) {
-        return this.mapper.map(entity);
+        return this.mapper.reverseMap(entity);
     }
 
 }

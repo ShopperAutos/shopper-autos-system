@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface WarehouseJpaRepository extends JpaRepository<WarehouseEntity, UUID> {
+public interface WarehouseJpaRepository extends GenericJpaRepository<WarehouseEntity,UUID> {
 
     Optional<WarehouseEntity> findByWarehouseUniquePropertyIdentifier(String warehouseUniquePropertyIdentifier);
 

@@ -11,21 +11,20 @@ import java.util.stream.IntStream;
 
 public class WarehouseInfrastructureObjectFactory {
 
-    private static List<UUID> warehouseIds = new ArrayList<>();
     private static List<String> warehouseUniquePropertyIdentifiers = new ArrayList<>();
 
 
-    public static List<WarehouseEntity> generateWarehouses(int warehouseQuantity) {
+    public static List<WarehouseEntity> getWarehouses() {
+
         List<WarehouseEntity> warehouseEntities = new ArrayList<>();
 
-        IntStream.range(0, warehouseQuantity).forEach(index -> {
-            warehouseIds.add(UUID.randomUUID());
+        IntStream.range(0, 15).forEach(index -> {
             generateRandomWarehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifiers);
             warehouseEntities.add(WarehouseEntity.builder()
-                    .id(warehouseIds.get(index))
+                    .id(UUID.randomUUID())
                     .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifiers.get(index))
                     .address(
-                            AddressFactory.createRandomEntity()
+                            AddressFactory.createRandomEntity(index)
                     )
                     .maxCapacity(20)
                     .availableSpace(20)

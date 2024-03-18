@@ -7,9 +7,9 @@ public class DomainPage<T> {
     private final List<T> content;
     private final Integer page;
     private final Integer size;
-    private final Integer totalResult;
+    private final Long totalResult;
 
-    public DomainPage(List<T> content, Integer page, Integer size, Integer totalResult) {
+    public DomainPage(List<T> content, Integer page, Integer size, Long totalResult) {
         this.content = content;
         this.page = page;
         this.size = size;
@@ -28,7 +28,7 @@ public class DomainPage<T> {
         return size;
     }
 
-    public Integer getTotalResult() {
+    public Long getTotalResult() {
         return totalResult;
     }
 

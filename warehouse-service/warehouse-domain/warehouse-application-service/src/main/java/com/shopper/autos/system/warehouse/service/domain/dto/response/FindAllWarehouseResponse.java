@@ -15,5 +15,5 @@ public class FindAllWarehouseResponse {
     private final List<WarehouseList> warehouses;
     private final Integer page;
     private final Integer size;
-    private final Integer totalResult;
+    private final Long totalResult;
 }

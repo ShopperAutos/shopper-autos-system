@@ -37,7 +37,7 @@ public class WarehouseTestConfiguration {
 
     @Bean
     public WarehouseDomainMapper warehouseDomainMapper() {
-        return new WarehouseDomainMapper();
+        return Mockito.mock(WarehouseDomainMapper.class);
     }
 
     @Bean
@@ -61,8 +61,8 @@ public class WarehouseTestConfiguration {
     }
 
     @Bean
-    public ApproveWarehouseHandler approveWarehouseHandler(){
-        return new ApproveWarehouseHandler(warehouseDomainService(),warehouseRepository(),warehouseDomainMapper());
+    public ApproveWarehouseHandler approveWarehouseHandler() {
+        return new ApproveWarehouseHandler(warehouseDomainService(), warehouseRepository(), warehouseDomainMapper());
     }
 
     @Bean

@@ -24,6 +24,6 @@ public class WarehouseTestConstant {
     public static final Integer PAGE = 0;
     public static final Integer SIZE = 1;
     public static final List<String> FIELDS = Arrays.asList("country", "state", "city");
-    public static final Integer TOTAL_RESULT = 1;
+    public static final Long TOTAL_RESULT = 1L;
 
 }

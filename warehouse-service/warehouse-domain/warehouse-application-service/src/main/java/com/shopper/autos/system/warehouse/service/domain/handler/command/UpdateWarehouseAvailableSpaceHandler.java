@@ -1,18 +1,14 @@
 package com.shopper.autos.system.warehouse.service.domain.handler.command;
 
 import com.shopper.autos.system.warehouse.service.domain.WarehouseDomainService;
-import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.dto.command.UpdateWarehouseAvailableSpaceCommand;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
-import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseNotFoundException;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
 import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Optional;
 
 @Slf4j
 public class UpdateWarehouseAvailableSpaceHandler implements RequestHandler<UpdateWarehouseAvailableSpaceCommand, WarehouseUpdatedResponse> {
