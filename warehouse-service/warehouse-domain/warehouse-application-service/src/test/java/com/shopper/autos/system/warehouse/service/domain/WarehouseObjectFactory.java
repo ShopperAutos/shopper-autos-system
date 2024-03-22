@@ -1,16 +1,26 @@
 package com.shopper.autos.system.warehouse.service.domain;
 
+import com.shopper.autos.system.domain.entity.DomainPage;
 import com.shopper.autos.system.domain.valueobject.Coordinate;
 import com.shopper.autos.system.domain.valueobject.SortingValue;
 import com.shopper.autos.system.warehouse.service.domain.constant.WarehouseDomainConstant;
 import com.shopper.autos.system.warehouse.service.domain.dto.CreateWarehouseAddress;
+import com.shopper.autos.system.warehouse.service.domain.dto.WarehouseAddressResponse;
+import com.shopper.autos.system.warehouse.service.domain.dto.WarehouseList;
 import com.shopper.autos.system.warehouse.service.domain.dto.command.*;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWarehouseQuery;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindWarehouseQuery;
+import com.shopper.autos.system.warehouse.service.domain.dto.response.FindAllWarehouseResponse;
+import com.shopper.autos.system.warehouse.service.domain.dto.response.FindWarehouseResponse;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
+import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseAddress;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
+import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
+
+import java.util.List;
+import java.util.UUID;
 
 import static com.shopper.autos.system.warehouse.service.domain.WarehouseTestConstant.*;
 
@@ -33,14 +43,32 @@ public class WarehouseObjectFactory {
                 .build();
     }
 
-    public static Warehouse createWarehouse(CreateWarehouseCommand createWarehouseCommand, WarehouseDomainMapper warehouseDomainMapper) {
-        Warehouse warehouse = warehouseDomainMapper.createWarehouseCommandToWarehouse(createWarehouseCommand);
-        warehouse.setId(new WarehouseId(WAREHOUSE_ID));
-        return warehouse;
+    public static Warehouse createWarehouse(Integer availableSpace) {
+
+        return Warehouse.builder()
+                .warehouseUniquePropertyIdentifier(WAREHOUSE_UNIQUE_PROPERTY_IDENTIFIER)
+                .address(new WarehouseAddress(
+                                UUID.randomUUID(),
+                                COUNTRY,
+                                STATE,
+                                CITY,
+                                ADDRESS,
+                                ZIP_CODE,
+                                ADDITIONAL,
+                                new Coordinate(LATITUDE, LONGITUDE)
+                        )
+                )
+                .maxCapacity(MAX_CAPACITY)
+                .availableSpace(availableSpace)
+                .build();
     }
 
-    public static WarehouseUpdatedResponse createwarehouseUpdatedResponse(Warehouse warehouse, WarehouseDomainMapper warehouseDomainMapper) {
-        return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouse, WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS);
+    public static WarehouseUpdatedResponse createwarehouseUpdatedResponse(Warehouse warehouse, String message, WarehouseStatus warehouseStatus) {
+        return WarehouseUpdatedResponse.builder()
+                .warehouseUniquePropertyIdentifier(warehouse.getWarehouseUniquePropertyIdentifier())
+                .warehouseStatus(warehouseStatus)
+                .message(message)
+                .build();
     }
 
     public static FindAllWarehouseQuery createFindAllWarehouseQuery() {
@@ -74,8 +102,8 @@ public class WarehouseObjectFactory {
                 .build();
     }
 
-    public static DeleteWarehouseCommand createDeleteWarehouseCommand(String warehouseUniquePropertyIdentifier) {
-        return DeleteWarehouseCommand.builder()
+    public static CancelWarehouseCommand createDeleteWarehouseCommand(String warehouseUniquePropertyIdentifier) {
+        return CancelWarehouseCommand.builder()
                 .warehouseUniquePropertyIdentifier(warehouseUniquePropertyIdentifier)
                 .build();
     }
@@ -87,4 +115,49 @@ public class WarehouseObjectFactory {
                 .build();
     }
 
+    public static WarehouseList createWarehouseList(Warehouse warehouse) {
+        return WarehouseList.builder()
+                .warehouseUniquePropertyIdentifier(warehouse.getWarehouseUniquePropertyIdentifier())
+                .maxCapacity(warehouse.getMaxCapacity())
+                .availableSpace(warehouse.getAvailableSpace())
+                .city(warehouse.getAddress().getCity())
+                .address(warehouse.getAddress().getAddress())
+                .build();
+    }
+
+    public static FindAllWarehouseResponse createFindAllWarehouseResponse(DomainPage<Warehouse> warehousePage) {
+        return FindAllWarehouseResponse.builder()
+                .warehouses(warehousePage.getContent().stream().map(WarehouseObjectFactory::createWarehouseList).toList())
+                .page(warehousePage.getPage())
+                .size(warehousePage.getSize())
+                .totalResult(warehousePage.getTotalResult())
+                .build();
+    }
+
+    public static FindWarehouseResponse createFindWarehouseResponse(Warehouse warehouse) {
+        return FindWarehouseResponse.builder()
+                .warehouseUniquePropertyIdentifier(warehouse.getWarehouseUniquePropertyIdentifier())
+                .locationAddress(WarehouseAddressResponse.builder()
+                        .country(warehouse.getAddress().getCountry())
+                        .state(warehouse.getAddress().getState())
+                        .city(warehouse.getAddress().getCity())
+                        .address(warehouse.getAddress().getAddress())
+                        .additional(warehouse.getAddress().getAdditional())
+                        .zipCode(warehouse.getAddress().getZipCode())
+                        .coordinate(warehouse.getAddress().getCoordinate())
+                        .build())
+                .maxCapacity(warehouse.getMaxCapacity())
+                .availableSpace(warehouse.getAvailableSpace())
+                .warehouseStatus(warehouse.getWarehouseStatus())
+                .build();
+    }
+
+    public static DomainPage<Warehouse> createWarehouseDomainpage(List<Warehouse> warehouse, Integer page, Integer size) {
+        return new DomainPage<>(
+                warehouse,
+                page,
+                size,
+                (long) warehouse.size()
+        );
+    }
 }

@@ -3,7 +3,7 @@ package com.shopper.autos.system.warehouse.service.infrastructure.adapter;
 import com.shopper.autos.system.domain.entity.BaseEntity;
 import com.shopper.autos.system.domain.repository.BaseRepository;
 import com.shopper.autos.system.domain.valueobject.BaseId;
-import com.shopper.autos.system.warehouse.service.infrastructure.mapper.GenericMapper;
+import com.shopper.autos.system.infrastructure.mapper.GenericMapper;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.GenericJpaRepository;
 
 import java.util.Optional;

@@ -1,13 +1,11 @@
 package com.shopper.autos.system.warehouse.service.infrastructure;
 
+import com.shopper.autos.system.infrastructure.mapper.GenericMapper;
+import com.shopper.autos.system.infrastructure.mapper.GenericMapperImpl;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
-import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
-import com.shopper.autos.system.warehouse.service.infrastructure.adapter.BaseRepositoryAdapter;
 import com.shopper.autos.system.warehouse.service.infrastructure.adapter.WarehouseRepositoryAdapter;
 import com.shopper.autos.system.warehouse.service.infrastructure.entity.WarehouseEntity;
-import com.shopper.autos.system.warehouse.service.infrastructure.mapper.GenericMapper;
-import com.shopper.autos.system.warehouse.service.infrastructure.mapper.GenericMapperImpl;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.GenericJpaRepository;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.WarehouseJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ public class WarehouseInfrastructureTestConfiguration {
 
     @Bean
     public WarehouseRepository warehouseRepository() {
-        return new WarehouseRepositoryAdapter(genericMapper(), genericJpaRepository, warehouseJpaRepository);
+        return new WarehouseRepositoryAdapter(genericMapper(), warehouseJpaRepository);
     }
 
     /*@Autowired

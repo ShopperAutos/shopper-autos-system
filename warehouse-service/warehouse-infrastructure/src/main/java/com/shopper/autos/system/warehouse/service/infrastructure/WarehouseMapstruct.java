@@ -1,10 +1,10 @@
 package com.shopper.autos.system.warehouse.service.infrastructure;
 
+import com.shopper.autos.system.infrastructure.mapper.ParentTranslator;
 import com.shopper.autos.system.warehouse.service.domain.dto.command.CreateWarehouseCommand;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
 import com.shopper.autos.system.warehouse.service.infrastructure.entity.WarehouseEntity;
-import com.shopper.autos.system.warehouse.service.infrastructure.mapper.ParentTranslator;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

@@ -1,4 +1,4 @@
-package com.shopper.autos.system.warehouse.service.infrastructure.mapper;
+package com.shopper.autos.system.infrastructure.mapper;
 
 public class GenericMapperImpl<Origin, Destination> implements GenericMapper<Origin, Destination> {
 

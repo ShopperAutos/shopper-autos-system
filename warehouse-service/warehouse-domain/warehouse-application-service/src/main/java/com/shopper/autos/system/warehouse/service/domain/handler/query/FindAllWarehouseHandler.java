@@ -5,7 +5,7 @@ import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWareho
 import com.shopper.autos.system.warehouse.service.domain.dto.response.FindAllWarehouseResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
-import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
+import com.shopper.autos.system.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 
 public class FindAllWarehouseHandler implements RequestHandler<FindAllWarehouseQuery, FindAllWarehouseResponse> {
@@ -30,6 +30,7 @@ public class FindAllWarehouseHandler implements RequestHandler<FindAllWarehouseQ
                         request.getState(),
                         request.getCity()
                 );
-        return warehouseDomainMapper.domainPageWarehouseToFindAllWarehouseResponse(warehouses);
+        FindAllWarehouseResponse findAllWarehouseResponse = warehouseDomainMapper.domainPageWarehouseToFindAllWarehouseResponse(warehouses);
+        return findAllWarehouseResponse;
     }
 }

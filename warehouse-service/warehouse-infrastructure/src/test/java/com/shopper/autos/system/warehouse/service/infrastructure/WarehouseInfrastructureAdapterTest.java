@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -49,6 +50,7 @@ public class WarehouseInfrastructureAdapterTest {
                 .build();
         WarehouseEntity warehouseEntity = warehouseMapstruct.originToDestination(warehouse);
         Warehouse save = warehouseRepository.save(warehouse);
+        Optional<Warehouse> byWarehouseUniquePropertyIdentifier = warehouseRepository.findByWarehouseUniquePropertyIdentifier("000-000-000");
         System.out.println(save.getAvailableSpace());
     }
 

@@ -6,7 +6,7 @@ import com.shopper.autos.system.warehouse.service.domain.dto.query.FindAllWareho
 import com.shopper.autos.system.warehouse.service.domain.dto.response.FindAllWarehouseResponse;
 import com.shopper.autos.system.warehouse.service.domain.dto.query.FindWarehouseQuery;
 import com.shopper.autos.system.warehouse.service.domain.dto.response.FindWarehouseResponse;
-import com.shopper.autos.system.warehouse.service.domain.mediator.Mediator;
+import com.shopper.autos.system.domain.mediator.Mediator;
 import com.shopper.autos.system.warehouse.service.domain.port.input.service.WarehouseApplicationService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,8 +40,8 @@ class WarehouseApplicationServiceImpl implements WarehouseApplicationService {
     }
 
     @Override
-    public WarehouseUpdatedResponse deleteWarehouse(DeleteWarehouseCommand deleteWarehouseCommand) {
-        return mediator.send(deleteWarehouseCommand);
+    public WarehouseUpdatedResponse deleteWarehouse(CancelWarehouseCommand cancelWarehouseCommand) {
+        return mediator.send(cancelWarehouseCommand);
     }
 
     @Override

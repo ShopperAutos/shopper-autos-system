@@ -1,4 +1,4 @@
-package com.shopper.autos.system.warehouse.service.domain.mediator;
+package com.shopper.autos.system.domain.mediator;
 
 import java.util.Map;
 

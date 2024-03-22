@@ -13,7 +13,7 @@ public interface WarehouseApplicationService {
     FindAllWarehouseResponse findAllWarehouses(FindAllWarehouseQuery findAllWarehouseQuery);
     FindWarehouseResponse findWarehouseByWarehouseUniquePropertyIdentifier(FindWarehouseQuery findWarehouseQuery);
     WarehouseUpdatedResponse updateWarehouseAvailableSpace(UpdateWarehouseAvailableSpaceCommand updateWarehouseAvailableSpace);
-    WarehouseUpdatedResponse deleteWarehouse(DeleteWarehouseCommand deleteWarehouseCommand);
+    WarehouseUpdatedResponse deleteWarehouse(CancelWarehouseCommand cancelWarehouseCommand);
     WarehouseUpdatedResponse approveWarehouse(ApproveWarehouseCommand approveWarehouseCommand);
     WarehouseUpdatedResponse rejectWarehouse(RejectWarehouseCommand rejectWarehouseCommand);
 

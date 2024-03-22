@@ -9,9 +9,9 @@ import com.shopper.autos.system.warehouse.service.domain.handler.command.CreateW
 import com.shopper.autos.system.warehouse.service.domain.handler.query.FindAllWarehouseHandler;
 import com.shopper.autos.system.warehouse.service.domain.handler.query.FindWarehouseHandler;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
-import com.shopper.autos.system.warehouse.service.domain.mediator.Mediator;
-import com.shopper.autos.system.warehouse.service.domain.mediator.MediatorImpl;
-import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
+import com.shopper.autos.system.domain.mediator.Mediator;
+import com.shopper.autos.system.domain.mediator.MediatorImpl;
+import com.shopper.autos.system.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.input.service.WarehouseApplicationService;
 import com.shopper.autos.system.warehouse.service.domain.port.output.publisher.WarehouseCreatedMessagePublisher;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;

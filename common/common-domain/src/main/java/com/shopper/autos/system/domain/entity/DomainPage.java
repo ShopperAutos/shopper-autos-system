@@ -1,6 +1,7 @@
 package com.shopper.autos.system.domain.entity;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DomainPage<T> {
 
@@ -32,5 +33,16 @@ public class DomainPage<T> {
         return totalResult;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DomainPage<?> that = (DomainPage<?>) o;
+        return Objects.equals(content, that.content) && Objects.equals(page, that.page) && Objects.equals(size, that.size) && Objects.equals(totalResult, that.totalResult);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(content, page, size, totalResult);
+    }
 }

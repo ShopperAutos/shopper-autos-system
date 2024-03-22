@@ -8,7 +8,7 @@ import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.event.WarehouseCreatedEvent;
 import com.shopper.autos.system.warehouse.service.domain.exception.WarehouseDomainException;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
-import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
+import com.shopper.autos.system.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.publisher.WarehouseCreatedMessagePublisher;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 

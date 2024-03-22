@@ -4,7 +4,7 @@ import com.shopper.autos.system.warehouse.service.domain.dto.query.FindWarehouse
 import com.shopper.autos.system.warehouse.service.domain.dto.response.FindWarehouseResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
-import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
+import com.shopper.autos.system.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
 import lombok.extern.slf4j.Slf4j;

@@ -5,9 +5,10 @@ import com.shopper.autos.system.warehouse.service.domain.dto.command.ApproveWare
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainMapper;
-import com.shopper.autos.system.warehouse.service.domain.mediator.RequestHandler;
+import com.shopper.autos.system.domain.mediator.RequestHandler;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
+import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,13 +26,12 @@ public class ApproveWarehouseHandler implements RequestHandler<ApproveWarehouseC
 
     @Override
     public WarehouseUpdatedResponse handle(ApproveWarehouseCommand request) {
-        Warehouse foundWarehouse = CommonWarehouseDomain.findWarehouseByWarehouseUniquePropertyIdentifier(warehouseRepository, request.getWarehouseUniquePropertyIdentifier(),log);
+        Warehouse foundWarehouse = CommonWarehouseDomain.findWarehouseByWarehouseUniquePropertyIdentifier(warehouseRepository, request.getWarehouseUniquePropertyIdentifier(), log);
         warehouseDomainService.approveWarehouse(foundWarehouse);
-        warehouseRepository.update(foundWarehouse.getId(), foundWarehouse);
+        warehouseRepository.updateWarehouseStatus(foundWarehouse.getId(), WarehouseStatus.CREATED);
         //TODO: Change message
         return warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(foundWarehouse, "ACTUALIZADO");
     }
-
 
 
 }

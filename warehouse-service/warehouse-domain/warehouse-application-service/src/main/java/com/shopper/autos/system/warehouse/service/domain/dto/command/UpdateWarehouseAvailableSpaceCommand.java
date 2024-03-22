@@ -1,11 +1,10 @@
 package com.shopper.autos.system.warehouse.service.domain.dto.command;
 
 import com.shopper.autos.system.warehouse.service.domain.dto.response.WarehouseUpdatedResponse;
-import com.shopper.autos.system.warehouse.service.domain.mediator.Request;
+import com.shopper.autos.system.domain.mediator.Request;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
