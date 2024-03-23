@@ -16,9 +16,11 @@ import com.shopper.autos.system.warehouse.service.domain.mapper.WarehouseDomainM
 import com.shopper.autos.system.warehouse.service.domain.port.input.service.WarehouseApplicationService;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.domain.util.CommonWarehouseDomain;
-import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,7 +32,6 @@ import java.util.stream.Stream;
 
 import static com.shopper.autos.system.warehouse.service.domain.WarehouseTestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)

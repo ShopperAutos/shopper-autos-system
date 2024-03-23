@@ -6,6 +6,7 @@ import com.shopper.autos.system.infrastructure.mapper.GenericMapper;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
+import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
 import com.shopper.autos.system.warehouse.service.infrastructure.entity.WarehouseEntity;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.GenericJpaRepository;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.WarehouseJpaRepository;
@@ -57,9 +58,15 @@ public class WarehouseRepositoryAdapter extends BaseRepositoryAdapter<Warehouse,
     }
 
     @Override
-    public Optional<Warehouse> updateAvailableSpace(String warehouseUniquePropertyIdentifier, Integer availableSpace) {
-        return Optional.empty();
+    public void updateAvailableSpace(WarehouseId warehouseId, Integer availableSpace) {
+
     }
+
+    @Override
+    public void updateWarehouseStatus(WarehouseId warehouseId, WarehouseStatus warehouseStatus) {
+
+    }
+
 
     @Override
     public Optional<Warehouse> deleteByWarehouseUniquePropertyIdentifier(String warehouseUniquePropertyIdentifier) {
