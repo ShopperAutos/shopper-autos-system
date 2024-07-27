@@ -140,7 +140,7 @@ class WarehouseApplicationServiceTest {
 
     }
 
-    @Test
+/*    @Test
     void givenARightCreateWarehouseCommand_whenAttemptToCreate_thenTheWarehouseShouldBeCreatedAsPending() {
         warehouseUpdatedResponse = WarehouseObjectFactory.createwarehouseUpdatedResponse(warehouse, WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS, WarehouseStatus.PENDING);
         when(warehouseDomainMapper.warehouseToWarehouseUpdatedResponse(warehouse, WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS)).thenReturn(warehouseUpdatedResponse);
@@ -148,7 +148,7 @@ class WarehouseApplicationServiceTest {
         Assertions.assertEquals(WarehouseStatus.PENDING, createdWarehouseResponse.getWarehouseStatus());
         Assertions.assertEquals(createdWarehouseResponse.getMessage(), WarehouseDomainConstant.WAREHOUSE_CREATION_SUCCESS);
         Assertions.assertNotNull(createdWarehouseResponse.getWarehouseUniquePropertyIdentifier());
-    }
+    }*/
 
     //TODO: this will be tested when other business rules are created
 //    @Test

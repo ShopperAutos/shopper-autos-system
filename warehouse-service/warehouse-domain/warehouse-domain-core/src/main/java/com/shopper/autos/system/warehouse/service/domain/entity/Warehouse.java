@@ -110,6 +110,8 @@ public class Warehouse extends BaseEntity<WarehouseId> {
             throw new WarehouseDomainException(WarehouseDomainConstant.UNIQUE_PROPERTY_IDENTIFIER_CANNOT_BE_EMPTY);
     }
 
+
+
     public static final class Builder {
         private WarehouseId warehouseId;
         private String warehouseUniquePropertyIdentifier;
