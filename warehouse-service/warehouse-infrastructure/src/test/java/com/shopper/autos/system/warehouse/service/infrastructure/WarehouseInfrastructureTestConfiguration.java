@@ -1,7 +1,7 @@
 package com.shopper.autos.system.warehouse.service.infrastructure;
 
-import com.shopper.autos.system.infrastructure.mapper.GenericMapper;
-import com.shopper.autos.system.infrastructure.mapper.GenericMapperImpl;
+import com.shopper.autos.system.infrastructure.mapper.BaseMapper;
+import com.shopper.autos.system.infrastructure.mapper.BaseMapperImpl;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.infrastructure.adapter.WarehouseRepositoryAdapter;
@@ -31,8 +31,8 @@ public class WarehouseInfrastructureTestConfiguration {
     }
 
     @Bean
-    public GenericMapper<Warehouse, WarehouseEntity> genericMapper() {
-        return new GenericMapperImpl<>(WarehouseMapstruct.INSTANCE);
+    public BaseMapper<Warehouse, WarehouseEntity> genericMapper() {
+        return new BaseMapperImpl<>(WarehouseMapstruct.INSTANCE);
     }
 
     @Bean

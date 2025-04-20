@@ -1,10 +1,10 @@
 package com.shopper.autos.system.infrastructure.mapper;
 
-public class GenericMapperImpl<Origin, Destination> implements GenericMapper<Origin, Destination> {
+public class BaseMapperImpl<Origin, Destination> implements BaseMapper<Origin, Destination> {
 
     private final ParentTranslator<Origin, Destination> translator;
 
-    public GenericMapperImpl(ParentTranslator<Origin, Destination> translator) {
+    public BaseMapperImpl(ParentTranslator<Origin, Destination> translator) {
         this.translator = translator;
     }
 

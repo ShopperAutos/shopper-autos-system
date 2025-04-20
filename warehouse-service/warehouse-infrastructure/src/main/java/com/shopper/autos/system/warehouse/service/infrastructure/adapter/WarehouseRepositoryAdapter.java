@@ -2,13 +2,13 @@ package com.shopper.autos.system.warehouse.service.infrastructure.adapter;
 
 import com.shopper.autos.system.domain.entity.DomainPage;
 import com.shopper.autos.system.domain.valueobject.SortingValue;
-import com.shopper.autos.system.infrastructure.mapper.GenericMapper;
+import com.shopper.autos.system.infrastructure.adapter.BaseRepositoryAdapter;
+import com.shopper.autos.system.infrastructure.mapper.BaseMapper;
 import com.shopper.autos.system.warehouse.service.domain.entity.Warehouse;
 import com.shopper.autos.system.warehouse.service.domain.port.output.repository.WarehouseRepository;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseId;
 import com.shopper.autos.system.warehouse.service.domain.valueobjects.WarehouseStatus;
 import com.shopper.autos.system.warehouse.service.infrastructure.entity.WarehouseEntity;
-import com.shopper.autos.system.warehouse.service.infrastructure.repository.GenericJpaRepository;
 import com.shopper.autos.system.warehouse.service.infrastructure.repository.WarehouseJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,7 +23,7 @@ public class WarehouseRepositoryAdapter extends BaseRepositoryAdapter<Warehouse,
 
     private final WarehouseJpaRepository warehouseJpaRepository;
 
-    public WarehouseRepositoryAdapter(GenericMapper<Warehouse, WarehouseEntity> mapper, WarehouseJpaRepository warehouseJpaRepository) {
+    public WarehouseRepositoryAdapter(BaseMapper<Warehouse, WarehouseEntity> mapper, WarehouseJpaRepository warehouseJpaRepository) {
         super(mapper, warehouseJpaRepository);
         this.warehouseJpaRepository = warehouseJpaRepository;
     }
